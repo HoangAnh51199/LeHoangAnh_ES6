@@ -1,0 +1,11 @@
+
+
+
+MVC => model - view - controller - [service]
+
+model: chứa những lớp đối tượng
+view: hiện giao diện
+controller: file xử lý chức năng của view
+service: xử lý chức năng business của controller
+
+=> component
