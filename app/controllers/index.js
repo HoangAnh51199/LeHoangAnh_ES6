@@ -2,11 +2,15 @@ import { Person } from "../models/person.js";
 import { ListPerson } from "../services/list-person.js";
 
 import { Student } from "../models/student.js";
+import { Employee } from "../models/employee.js"
 
 
 const listPerson = new ListPerson();
 
 const domId = (id) => document.getElementById(id);
+
+domId("btnResult").style.display = "none";
+
 
 const getFormvalues = () => {
   domId("personID").disabled = false;
@@ -33,14 +37,14 @@ const getFormvalues = () => {
 domId("openModal").onclick = () => {
   domId("labelModal").innerHTML = "Thêm người dùng";
   domId("formNhap").reset();
-   domId("personID").disabled = false;
-   domId("btnThem").style.display = "block";
-   domId("btnCapNhat").style.display = "none";
+  domId("personID").disabled = false;
+  domId("btnThem").style.display = "block";
+  domId("btnCapNhat").style.display = "none";
 
   // domId("divHocSinh").style.display = "none";
   // domid("divNhanVien").style.display = "none";
   // 
-  
+
 
 }
 
@@ -112,21 +116,22 @@ const renderTable = (data = listPerson.personList) => {
   domId("tbodyFood").innerHTML = content;
 }
 
- window.openupChucNang =(personId) => {
+window.openupChucNang = (personId) => {
   //  domId("btnChucnang").style.display = "block";
   domId("labelModal").innerHTML = "chức năng";
-   domId("btnThem").style.display = "none";
+  domId("btnThem").style.display = "none";
   domId("btnCapNhat").style.display = "none";
-   const person = listPerson.findById(personId);
+  domId("btnResult").style.display = "block";
+  const person = listPerson.findById(personId);
 
-   const { id, name, address, email, type } = person; // bóc tách phần tử ra khỏi const person
+  const { id, name, address, email, type } = person; // bóc tách phần tử ra khỏi const person
 
-   domId("personID").value = id;   // domId("personID").value = person.id;  viết rút gọn
+  domId("personID").value = id;   // domId("personID").value = person.id;  viết rút gọn
   domId("personID").disabled = true;
   domId("namePerson").value = name;
-   domId("adressPerson").value = address;
+  domId("adressPerson").value = address;
   domId("email").value = email;
-   domId("type").value = type;
+  domId("type").value = type;
 
 
   const loai = domId("type").value = type;
@@ -136,21 +141,60 @@ const renderTable = (data = listPerson.personList) => {
     document.getElementById("divNhanVien").style.display = "none";
 
 
-} else if(loai === "loai2") {
-  document.getElementById("divNhanVien").style.display = "block";
-  document.getElementById("divHocSinh").style.display = "none";
-  
-}
-else {
- 
+  } else if (loai === "loai2") {
+    document.getElementById("divNhanVien").style.display = "block";
+    document.getElementById("divHocSinh").style.display = "none";
+
+  } else {
+
     document.getElementById("divHocSinh").style.display = "none";
     document.getElementById("divNhanVien").style.display = "none";
+    domId("footerTinhKQ").innerHTML=" <p>chưa có chức năng loại đối tượng này &#128524;</p>";
+  }
+
+
 }
+
+domId("btnResult").onclick = () => {
+  const id = domId("personID").value   // domId("personID").value = person.id;  viết rút gọn
+  const name = domId("namePerson").value 
+  const address = domId("adressPerson").value 
+  const email = domId("email").value 
+  const type = domId("type").value
+
+
+  if (type === "loai1") {
+    const math = domId("diemLy").value*1;
+    const physicial = domId("diemToan").value*1;
+    const chemistry = domId("diemHoa").value*1;
+    const student = new Student(id, name, address, email, type, math, physicial, chemistry);
+
+    const tinhDTB = student.tinhDTB();
+    console.log(tinhDTB);
+
+
+    domId("footerTinhKQ").innerHTML = tinhDTB +" điểm";
+  } else if (type === "loai2") {
+    const datework= domId("datework").value*1;
+    const salary=domId("salary").value*1;
+
+    const employee = new Employee(id, name, address, email, type, datework, salary);
+    const tinhLuong =employee.tinhLuong();
+
+    var vietnam = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+  });
+    domId("footerTinhKQ").innerHTML = vietnam.format(tinhLuong);
+  }
+
+
+
 }
 
 window.openUpdateModal = (personId) => {
   //console.log(id);
- 
+
   domId("labelModal").innerHTML = "Sửa người dùng";
   domId("btnThem").style.display = "none";
   domId("btnCapNhat").style.display = "block";
@@ -163,10 +207,12 @@ window.openUpdateModal = (personId) => {
   domId("namePerson").value = name;
   domId("adressPerson").value = address;
   domId("email").value = email;
-   domId("type").value = type;
-      
-        
+  domId("type").value = type;
+
+
 }
+
+
 
 
 domId("btnCapNhat").onclick = () => {
@@ -239,23 +285,24 @@ window.onload = () => {
   renderTable();
 }
 
-// domId("btnChucnang").onclick=() => {
-//   var loai = document.getElementById("type").value;
-      
-//       if (loai === "loai1") {
-//           //Do something
-//           document.getElementById("divHocSinh").style.display = "block";
-//           document.getElementById("divNhanVien").style.display = "none";
-    
+domId("type").onchange = () => {
+  var loai = document.getElementById("type").value;
 
-//       } else if(loai === "loai2") {
-//         document.getElementById("divNhanVien").style.display = "block";
-//         document.getElementById("divHocSinh").style.display = "none";
-        
-//       }
-//       else {
-       
-//           document.getElementById("divHocSinh").style.display = "none";
-//           document.getElementById("divNhanVien").style.display = "none";
-//       }
-// }
+  if (loai === "loai1") {
+    //Do something
+    document.getElementById("divHocSinh").style.display = "block";
+    document.getElementById("divNhanVien").style.display = "none";
+
+
+  } else if (loai === "loai2") {
+    document.getElementById("divNhanVien").style.display = "block";
+    document.getElementById("divHocSinh").style.display = "none";
+
+  }
+  else {
+
+    document.getElementById("divHocSinh").style.display = "none";
+    document.getElementById("divNhanVien").style.display = "none";
+    domId("footerTinhKQ").innerHTML="<p>chưa có chức năng loại đối tượng này &#128524;</p>";
+  }
+}
