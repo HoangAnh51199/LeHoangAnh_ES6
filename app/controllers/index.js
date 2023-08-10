@@ -37,6 +37,16 @@ const getFormvalues = () => {
   );
 }
 
+// $('#exampleModal').on('hidden.bs.modal', function () {
+//   $(this).find('form').trigger('reset');
+//   $(this).find('p').trigger('reset');
+// })
+
+// $('#exampleModal').on('hidden.bs.modal', function () {
+//   $('#exampleModal form')[0].reset();
+//   $('#exampleModal p')[0].reset();
+// });
+
 domId("openModal").onclick = () => {
   domId("labelModal").innerHTML = "Thêm người dùng";
   domId("formNhap").reset();
@@ -48,13 +58,17 @@ domId("openModal").onclick = () => {
   domId("divHocSinh").style.display = "none";
   domId("divNhanVien").style.display = "none";
   domId("btnresult").disabled = true;
+  domId("footerTinhKQ").innerHTML = "";
+  domId("footerTinhKQ").style.display = "none";
 
+  
+  
 
   // 
 }
 
 
-domId("btnThem").onclick = (isADDTK, isADDEmail) => {
+domId("btnThem").onclick = () => {
   domId("personID").disabled = false;
   const id = domId("personID").value;
   const name = domId("namePerson").value;
@@ -171,7 +185,7 @@ const renderTable = (data = listPerson.personList) => {
           <button
             onclick="deletePerson('${element.id}')" 
             class="btn btn-danger" >XÓA</button>
-          <button 
+          <button id="demo"
           onclick="openupChucNang('${element.id}')"
          
           data-toggle="modal"
@@ -191,7 +205,7 @@ const renderTable = (data = listPerson.personList) => {
 window.openupChucNang = (personId) => {
   //  domId("btnChucnang").style.display = "block";
   domId("formNhap").reset();
-  
+ 
 
   domId("labelModal").innerHTML = "chức năng";
   domId("btnThem").style.display = "none";
@@ -214,20 +228,26 @@ window.openupChucNang = (personId) => {
   const loai = domId("type").value = type;
   if (loai === "loai1") {
     //Do something
+    
     document.getElementById("divHocSinh").style.display = "block";
     document.getElementById("divNhanVien").style.display = "none";
-
+    domId("footerTinhKQ").innerHTML = " ";
 
   } else if (loai === "loai2") {
+    domId("footerTinhKQ").innerHTML = " ";
     document.getElementById("divNhanVien").style.display = "block";
     document.getElementById("divHocSinh").style.display = "none";
 
   } else {
-
+    domId("labelModal").innerHTML = "Chức năng này chưa có ";
+    
     document.getElementById("divHocSinh").style.display = "none";
     document.getElementById("divNhanVien").style.display = "none";
-    domId("footerTinhKQ").innerHTML = " <p>chưa có chức năng loại đối tượng này &#128524;</p>";
+    domId("footerTinhKQ").innerHTML = " chưa có chức năng loại đối tượng này &#128524";
+    
   }
+
+  
 
 
 }
@@ -272,7 +292,7 @@ domId("btnResult").onclick = () => {
 let emailclone;
 window.openUpdateModal = (personId) => {
   //console.log(id);
-domId("")
+  
   domId("labelModal").innerHTML = "Sửa người dùng";
   domId("btnThem").style.display = "none";
   domId("btnCapNhat").style.display = "block";
@@ -280,6 +300,7 @@ domId("")
   domId("btnResult").style.display = "none";
   domId("divHocSinh").style.display = "none";
   domId("divNhanVien").style.display = "none";
+  domId("footerTinhKQ").innerHTML = "";
   const person = listPerson.findById(personId);
 
   const { id, name, address, email, type } = person; // bóc tách phần tử ra khỏi const person
