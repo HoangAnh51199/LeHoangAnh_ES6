@@ -46,26 +46,38 @@ const getFormvalues = () => {
 //   $('#exampleModal form')[0].reset();
 //   $('#exampleModal p')[0].reset();
 // });
+domId("openModal").addEventListener("click", resetModal);
 
-domId("openModal").onclick = () => {
+function  resetModal () {
   domId("labelModal").innerHTML = "Thêm người dùng";
   domId("formNhap").reset();
-  domId("personID").disabled = false;
-  domId("btnThem").style.display = "block";
-  domId("btnCapNhat").style.display = "none";
-  domId("type").disabled =false;
-  domId("btnResult").style.display = "none";
-  domId("divHocSinh").style.display = "none";
-  domId("divNhanVien").style.display = "none";
-  domId("btnresult").disabled = true;
-  domId("footerTinhKQ").innerHTML = "";
-  domId("footerTinhKQ").style.display = "none";
-
-  
-  
-
-  // 
+   domId("personID").disabled = false;
+   domId("btnThem").style.display = "block";
+   domId("btnCapNhat").style.display = "none";
+   domId("type").disabled =false;
+   domId("btnResult").style.display = "none";
+   domId("divHocSinh").style.display = "none";
+   domId("divNhanVien").style.display = "none";
+ 
+   //domId("footerTinhKQ").innerHTML = "";
+   domId("footerTinhKQ").style.display = "none";
 }
+// domId("openModal").onclick = () => {
+//   domId("labelModal").innerHTML = "Thêm người dùng";
+//   domId("formNhap").reset();
+//   domId("personID").disabled = false;
+//   domId("btnThem").style.display = "block";
+//   domId("btnCapNhat").style.display = "none";
+//   domId("type").disabled =false;
+//   domId("btnResult").style.display = "none";
+//   domId("divHocSinh").style.display = "none";
+//   domId("divNhanVien").style.display = "none";
+//   domId("btnresult").disabled = true;
+//   domId("footerTinhKQ").innerHTML = "";
+//   domId("footerTinhKQ").style.display = "none";
+
+//   // 
+// }
 
 
 domId("btnThem").onclick = () => {
@@ -239,11 +251,11 @@ window.openupChucNang = (personId) => {
     document.getElementById("divHocSinh").style.display = "none";
 
   } else {
-    domId("labelModal").innerHTML = "Chức năng này chưa có ";
+    domId("labelModal").innerHTML = "Chức năng này chưa có &#128524";
     
     document.getElementById("divHocSinh").style.display = "none";
     document.getElementById("divNhanVien").style.display = "none";
-    domId("footerTinhKQ").innerHTML = " chưa có chức năng loại đối tượng này &#128524";
+    domId("footerTinhKQ").innerHTML = " &#128073; chưa có chức năng loại đối tượng này &#128524";
     
   }
 
@@ -270,7 +282,7 @@ domId("btnResult").onclick = () => {
     console.log(tinhDTB);
 
 
-    domId("footerTinhKQ").innerHTML = tinhDTB + " điểm";
+    domId("footerTinhKQ").innerHTML = "&#128073; " + tinhDTB + " điểm";
   } else if (type === "loai2") {
     const datework = domId("datework").value * 1;
     const salary = domId("salary").value * 1;
@@ -282,7 +294,7 @@ domId("btnResult").onclick = () => {
       style: 'currency',
       currency: 'VND'
     });
-    domId("footerTinhKQ").innerHTML = vietnam.format(tinhLuong);
+    domId("footerTinhKQ").innerHTML =  "&#128073; " +vietnam.format(tinhLuong);
   }
 
 
