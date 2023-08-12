@@ -15,10 +15,7 @@ const domId = (id) => document.getElementById(id);
 domId("btnResult").style.display = "none";
 
 
-var stringify = localStorage.getItem("Person_LIST_KEY");
-let data = listPerson.personList=JSON.parse(stringify);
-var dsnv = data;
-console.log(dsnv);
+
 
 const getFormvalues = () => {
   domId("personID").disabled = false;
@@ -76,6 +73,17 @@ let layThongTinNV = (isADDTK, isADDEmail) => {
   const email = domId("email").value;
   const type = domId("type").value;
 
+  var dsnv=[];
+ 
+console.log(dsnv);
+var stringify = localStorage.getItem("Person_LIST_KEY");
+if(stringify){
+  let data = listPerson.personList=JSON.parse(stringify);
+  var dsnv = [...data];
+  console.log(data);
+  console.log(dsnv);
+
+}
   var isvalid = true;
   if (isADDTK) {
     isvalid &= validation.kiemtraRong(id, "txtErrorTK", "(*) vui lòng không để trống ") &&
