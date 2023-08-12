@@ -59,8 +59,8 @@ function  resetModal () {
    domId("divHocSinh").style.display = "none";
    domId("divNhanVien").style.display = "none";
  
-   //domId("footerTinhKQ").innerHTML = "";
-   domId("footerTinhKQ").style.display = "none";
+   domId("footerTinhKQ").innerHTML = "";
+   //domId("footerTinhKQ").style.display = "none";
 }
 // domId("openModal").onclick = () => {
 //   domId("labelModal").innerHTML = "Thêm người dùng";
@@ -178,7 +178,6 @@ domId("btnThem").onclick = () => {
 };
 
 
-
 const renderTable = (data = listPerson.personList) => {
   const content = data.reduce((total, element, index, array) => {
     total += `
@@ -246,9 +245,10 @@ window.openupChucNang = (personId) => {
     domId("footerTinhKQ").innerHTML = " ";
 
   } else if (loai === "loai2") {
-    domId("footerTinhKQ").innerHTML = " ";
+   
     document.getElementById("divNhanVien").style.display = "block";
     document.getElementById("divHocSinh").style.display = "none";
+    domId("footerTinhKQ").innerHTML = " ";
 
   } else {
     domId("labelModal").innerHTML = "Chức năng này chưa có &#128524";
