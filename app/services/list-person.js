@@ -18,7 +18,7 @@ export class ListPerson {
     const existedPerson = this.personList.find((element) => {
       return element.id === id; //giống biến_bind khai báo chứa this 
     });
-    console.log(existedPerson);
+    //console.log(existedPerson);
     return existedPerson;
   }
 
@@ -73,4 +73,5 @@ export class ListPerson {
     return this.personType;
 
   }
+
 }
